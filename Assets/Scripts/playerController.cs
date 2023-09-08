@@ -20,11 +20,11 @@ public class playerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            inputVector.y += 1;
+            inputVector.y -= 1;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            inputVector.y -= 1;
+            inputVector.y += 1;
         }
         if (Input.GetKey(KeyCode.A))
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,6 @@ public class CubeStacker : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnCubesWithDelay(SpawnPoint.position));
-
     }
  
     private IEnumerator SpawnCubesWithDelay(Vector3 spawnPosition)
@@ -33,6 +33,12 @@ public class CubeStacker : MonoBehaviour
             yield return new WaitForSeconds(spawnDelay);
         }
     }
-    
-   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            
+        }
+    }
 }
