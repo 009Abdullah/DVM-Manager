@@ -589,6 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af85585022d6ebf45b45dd2441f1f18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickedCube: {fileID: 0}
   SpawnPoint: {fileID: 1863003810}
   SpawnCubes: []
 --- !u!1 &581299781
@@ -1026,7 +1027,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHand: {fileID: 1770382122}
-  SpawnCubes: []
 --- !u!114 &1491901650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1354,6 +1354,7 @@ MonoBehaviour:
   spawnDelay: 0.1
   SpawnPoint: {fileID: 648897411}
   spawnedCubes: []
+  cubeStack: {fileID: 0}
 --- !u!1 &1770382121
 GameObject:
   m_ObjectHideFlags: 0
