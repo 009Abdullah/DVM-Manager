@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Unity.Mathematics;
 
 public class PickUpZone : MonoBehaviour
 {
@@ -19,14 +20,18 @@ public class PickUpZone : MonoBehaviour
             m_PlayerItemsDataContainer = other.GetComponent<ItemsDataContainer>();
             
             m_Playerdata = other.GetComponent<PlayerDataContainer>();
+
+            if (_coroutine == null)
+            {
+                _coroutine = StartCoroutine(Delay());
+            }
             
-            _coroutine = StartCoroutine(Delay());
         }
     }
 
     IEnumerator Delay()
     {
-        if (m_SpawnedItemsData.Items.Count <= 0)
+        if (m_SpawnedItemsData.Items.Count == 0)
         {
             if (_coroutine != null)
             {
@@ -34,28 +39,26 @@ public class PickUpZone : MonoBehaviour
             }
         }
         
+        int index = m_SpawnedItemsData.Items.Count - 1;
+        
+        m_SpawnedItemsData.Items[index].transform.SetParent(m_Playerdata.playerHand);
+        
+       
+        
         if (m_PlayerItemsDataContainer.Items.Count == 0)
         {
-            SpawnPosition = Vector3.zero;
+            m_SpawnedItemsData.Items[^1].transform.position = m_Playerdata.playerHand.position;
         }
         else
         {
-            SpawnPosition = m_PlayerItemsDataContainer.Items[m_PlayerItemsDataContainer.Items.Count - 1].transform.position + new Vector3(0, 0.5f, 0);
+            m_SpawnedItemsData.Items[^1].transform.position = m_PlayerItemsDataContainer.Items[^1].transform.position + new Vector3(0, 0.5f, 0);
         }
-        
-
-        int index = m_SpawnedItemsData.Items.Count - 1;
-
-        m_SpawnedItemsData.Items[index].transform.SetParent(m_Playerdata.playerHand);
         
         m_PlayerItemsDataContainer.Items.Add(m_SpawnedItemsData.Items[index]);
         
         m_SpawnedItemsData.Items.Remove(m_SpawnedItemsData.Items[index]);
 
         //m_SpawnedItemsData.Items[index].transform.DOMove(SpawnPosition, 0.5f);
-
-        m_PlayerItemsDataContainer.Items[m_PlayerItemsDataContainer.Items.Count - 1].transform.position = Vector3.zero;
-        m_PlayerItemsDataContainer.Items[m_PlayerItemsDataContainer.Items.Count - 1].transform.localPosition = SpawnPosition;
         
         yield return new WaitForSeconds(0.5f);
 
@@ -67,6 +70,7 @@ public class PickUpZone : MonoBehaviour
         if (_coroutine != null)
         {
             StopCoroutine(_coroutine);
+            _coroutine = null;
         }
     }
 }
