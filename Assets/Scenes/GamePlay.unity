@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DropItemContainer: {fileID: 745996496}
   PickItemContainer: {fileID: 1855134948}
+  PickUpItemPos: {fileID: 518499068}
 --- !u!4 &84076421
 Transform:
   m_ObjectHideFlags: 0

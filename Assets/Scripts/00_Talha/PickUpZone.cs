@@ -38,31 +38,33 @@ public class PickUpZone : MonoBehaviour
                 StopCoroutine(_coroutine);
             }
         }
-        
+
         int index = m_SpawnedItemsData.Items.Count - 1;
-        
-        m_SpawnedItemsData.Items[index].transform.SetParent(m_Playerdata.playerHand);
-        
-       
-        
-        if (m_PlayerItemsDataContainer.Items.Count == 0)
-        {
-            m_SpawnedItemsData.Items[^1].transform.position = m_Playerdata.playerHand.position;
-        }
-        else
-        {
-            m_SpawnedItemsData.Items[^1].transform.position = m_PlayerItemsDataContainer.Items[^1].transform.position + new Vector3(0, 0.5f, 0);
-        }
-        
-        m_PlayerItemsDataContainer.Items.Add(m_SpawnedItemsData.Items[index]);
-        
-        m_SpawnedItemsData.Items.Remove(m_SpawnedItemsData.Items[index]);
 
-        //m_SpawnedItemsData.Items[index].transform.DOMove(SpawnPosition, 0.5f);
-        
-        yield return new WaitForSeconds(0.5f);
+        if (index >= 0)
+        {
+            m_SpawnedItemsData.Items[index].transform.SetParent(m_Playerdata.playerHand);
 
-        _coroutine = StartCoroutine(Delay());
+            if (m_PlayerItemsDataContainer.Items.Count == 0)
+            {
+                m_SpawnedItemsData.Items[^1].transform.position = m_Playerdata.playerHand.position;
+            }
+            else
+            {
+                m_SpawnedItemsData.Items[^1].transform.position =
+                    m_PlayerItemsDataContainer.Items[^1].transform.position + new Vector3(0, 0.5f, 0);
+            }
+
+            m_PlayerItemsDataContainer.Items.Add(m_SpawnedItemsData.Items[index]);
+
+            m_SpawnedItemsData.Items.Remove(m_SpawnedItemsData.Items[index]);
+
+            //m_SpawnedItemsData.Items[index].transform.DOMove(SpawnPosition, 0.5f);
+
+            yield return new WaitForSeconds(0.5f);
+
+            _coroutine = StartCoroutine(Delay());
+        }
     }
 
     private void OnTriggerExit(Collider other)
