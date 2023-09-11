@@ -38,7 +38,6 @@ public class DropZone : MonoBehaviour
         
         int index = m_PlayerItemsDataContainer.Items.Count - 1;
 
-        print(index);
         if (index >= 0)
         {
             m_PlayerItemsDataContainer.Items[index].transform.SetParent(DropPos);
